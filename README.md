@@ -23,3 +23,13 @@ Create a custom drupal 8 module to achieve following functionality.
 3) Introduce custom table data to views (using custom module) and list down all records in tabular format
 
 4) Custom Tables must be created during module installation.
+
+
+# Requirements:
+
+1. You must be install one dependent module name as Address module for population Country and their state name:
+
+	https://www.drupal.org/project/address
+
+2. Use Commercerguys library
+	https://github.com/commerceguys/addressing
