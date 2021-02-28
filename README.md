@@ -8,7 +8,7 @@ http://practice_project.docker.localhost:8000/example/registration/form
 
 For View All registered User Data please visit below url:
 
-http://practice_project.docker.localhost:8000/example/registration/form
+http://practice_project.docker.localhost:8000/user/data
 
 # Requirements:
 
