@@ -31,5 +31,6 @@ Create a custom drupal 8 module to achieve following functionality.
 
 	https://www.drupal.org/project/address
 
-2. Use Commercerguys library
+2. Use Commercerguys library:
+
 	https://github.com/commerceguys/addressing
