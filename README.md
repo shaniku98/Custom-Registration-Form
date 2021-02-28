@@ -4,11 +4,11 @@
 
 For Registration page please visit below url: 
 
-[Example Registration Form](http://practice_project.docker.localhost:8000/example/registration/form)
+http://practice_project.docker.localhost:8000/example/registration/form
 
 For View All registered User Data please visit below url:
 
-[All Registered User Data](http://practice_project.docker.localhost:8000/example/registration/form)
+http://practice_project.docker.localhost:8000/example/registration/form
 
 # Requirements:
 
