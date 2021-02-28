@@ -1,0 +1,51 @@
+<?php
+
+function example_registration_schema() {
+  $schema['example_registration'] = [
+    'fields' => [
+      'id'=> [
+        'type'=>'serial',
+        'not null' => TRUE,
+      ],
+      'user_name'=> [
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+        'unique' => TRUE,
+      ],
+      'first_name'=> [
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ],
+      'last_name'=> [
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ],
+      'user_gender'=> [
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ],
+      'user_country'=> [
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ],
+      'user_state'=> [
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ],
+      'user_city'=> [
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id', 'user_name'],
+  ];
+
+  return $schema;
+}

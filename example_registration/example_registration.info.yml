@@ -1,0 +1,5 @@
+name: Example Registration Form
+description: Custom form for Registration with Ajax validation for username.
+type: module
+core_version_requirement: ^8 || ^9
+package: Custom

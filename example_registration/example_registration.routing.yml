@@ -1,0 +1,16 @@
+
+example_registration.example_registration_form:
+  path: '/example/registration/form'
+  defaults:
+    _form: '\Drupal\example_registration\Form\ExampleRegistrationForm'
+    _title: 'Example Registration Form'
+  requirements:
+    _access: 'TRUE'
+
+example_registration.display_user_data:
+  path: '/user/data'
+  defaults:
+    _controller: '\Drupal\example_registration\Controller\DisplayUserDataController::dataDisplay'
+    _title: 'User Data'
+  requirements:
+    _permission: 'access content'
