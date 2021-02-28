@@ -18,11 +18,11 @@ Create a custom drupal 8 module to achieve following functionality.
 
 2. Implement following server site and client side validation on developed form:
 
-  i) Username must be unique. Check uniqueness during typing of username via ajax.
+  1. Username must be unique. Check uniqueness during typing of username via ajax.
 
-  ii) Make all fields required.  (client side and server side).
+  2. Make all fields required.  (client side and server side).
 
-  iii) country, state and city must be dependent on each other (Like if someone select India than states of India should be in state field and after state selection only respected cities should be in city drop down.
+  3. country, state and city must be dependent on each other (Like if someone select India than states of India should be in state field and after state selection only respected cities should be in city drop down.
 
 3. Introduce custom table data to views (using custom module) and list down all records in tabular format
 
