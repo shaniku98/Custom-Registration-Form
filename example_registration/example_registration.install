@@ -49,3 +49,12 @@ function example_registration_schema() {
 
   return $schema;
 }
+
+
+/**
+ * Update example_registration table
+ */
+function example_registration_update_8101() {
+  $connection = Drupal::database();
+  $connection->query("ALTER TABLE example_registration ADD message VARCHAR(500) NULL)");
+}

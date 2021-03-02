@@ -28,13 +28,3 @@ Create a custom drupal 8 module to achieve following functionality.
 
 4). Custom Tables must be created during module installation.
 
-
-# Dependencies:
-
-1. You must be install one dependent module name as Address module for population Country and their state name:
-
-	https://www.drupal.org/project/address
-
-2. Use Commercerguys library:
-
-	https://github.com/commerceguys/addressing

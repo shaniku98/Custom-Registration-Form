@@ -11,7 +11,6 @@ use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 /**
  * Class ExampleRegistrationForm.
  *
@@ -31,163 +30,9 @@ class ExampleRegistrationForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     
-    $country = \Drupal::service('country_manager')->getList();
-
-
-    //hardcoded some city name for some state of India Country..
-    $city = [
-        "Chandigarh"=> [
-          "Chandigarh*" => 'jasfs',
-        ],
-        "Delhi"=> [
-          "Delhi",
-          "New Delhi*"
-        ],
-        "Goa"=> [
-          "Mapusa",
-          "Margao",
-          "Marmagao",
-          "Panaji*"
-        ],
-        "Gujarat"=> [
-          
-          "Surat",
-          "Talaja",
-          "Thangadh",
-          "Tharad",
-          "Umbergaon",
-          "Umreth",
-          "Una",
-        ],
-        "Himachal Pradesh"=> [
-          "Mandi",
-          "Nahan",
-          "Palampur",
-          "Shimla*",
-          "Solan",
-          "Sundarnagar"
-        ],
-        "Jammu and Kashmir"=> [
-          "Anantnag",
-          "Baramula",
-          "Jammu",
-          "Kathua",
-          "Punch",
-          "Rajauri",
-          "Sopore",
-          "Srinagar*",
-          "Udhampur"
-        ],
-        "Madhya Pradesh"=> [
-          "Alirajpur",
-          "Ashok Nagar",
-          "Balaghat",
-          "Bhopal",
-          "Ganjbasoda",
-          "Gwalior",
-          "Indore",
-          "Itarsi",
-          "Jabalpur",
-          "Lahar",
-          "Maharajpur",
-          "Mahidpur",
-          "Maihar",
-          "Malaj Khand",
-          "Manasa",
-          "Manawar",
-          "Mandideep",
-          "Mandla",
-          "Mandsaur",
-          "Mauganj",
-          "Mhow Cantonment",
-          "Mhowgaon",
-          "Morena",
-          "Multai",
-          "Mundi",
-          "Murwara (Katni)",
-          "Nagda",
-          "Nainpur",
-          "Narsinghgarh",
-          "Narsinghgarh",
-          "Neemuch",
-          "Nepanagar",
-          "Niwari",
-          "Nowgong",
-          "Nowrozabad (Khodargama)",
-          "Pachore",
-          "Pali",
-          "Panagar",
-          "Pandhurna",
-          "Panna",
-          "Pasan",
-          "Pipariya",
-          "Pithampur",
-          "Porsa",
-          "Prithvipur",
-          "Raghogarh-Vijaypur",
-          "Rahatgarh",
-          "Raisen",
-          "Rajgarh",
-          "Ratlam",
-          "Rau",
-          "Rehli",
-          "Rewa",
-          "Sabalgarh",
-          "Sagar",
-          "Sanawad",
-          "Sarangpur",
-          "Sarni",
-          "Satna",
-          "Sausar",
-          "Sehore",
-          "Sendhwa",
-          "Seoni",
-          "Seoni-Malwa",
-          "Shahdol",
-          "Shajapur",
-          "Shamgarh",
-          "Sheopur",
-          "Shivpuri",
-          "Shujalpur",
-          "Sidhi",
-          "Sihora",
-          "Singrauli",
-          "Sironj",
-          "Sohagpur",
-          "Tarana",
-          "Tikamgarh",
-          "Ujjain",
-          "Umaria",
-          "Vidisha",
-          "Vijaypur",
-          "Wara Seoni"
-        ],
-        "Maharashtra"=> [
-          "Dhule",
-          "Kalyan-Dombivali",
-          "Manjlegaon",
-          "Manmad",
-          "Manwath",
-          "Mehkar",
-          "Mhaswad",
-        ],
-        "Uttar Pradesh"=> [
-          "Unnao",
-          "Utraula",
-          "Varanasi",
-          "Vrindavan",
-          "Warhapur",
-          "Zaidpur",
-          "Zamania"
-        ],
-        "Uttarakhand"=> [
-          "Bageshwar",
-          "Roorkee",
-          "Rudrapur",
-          "Sitarganj",
-          "Srinagar",
-          "Tehri"
-        ],
+    $country = [
+      'India' => 'India',
+      'United States of America' => 'United States of America',
     ];
 
     $form['user_name'] = [
@@ -223,9 +68,9 @@ class ExampleRegistrationForm extends FormBase {
       '#title' => ('Gender'),
       '#required' => TRUE,
       '#options' => [
-        'female' => t('Female'),
-        'male' => t('Male'),
-        'other' => t('Other'),
+        'Female' => t('Female'),
+        'Male' => t('Male'),
+        'Other' => t('Other'),
         ],
     ];
 
@@ -242,20 +87,20 @@ class ExampleRegistrationForm extends FormBase {
           'type' => 'throbber',
           'message' => $this->t('Verifying entry...'),
         ],
-        'wrapper' => 'first',
+        'wrapper' => 'state',
       ],
     ];
-    $states =['- Select -'];
+    // $states =['- Select -'];
     $form['user_state'] = [
       '#type' => 'select',
       '#title' => $this->t('Select State'),
-      '#prefix' => '<div id="first">',
+      '#prefix' => '<div id="state">',
       '#suffix' => '</div>',
       '#validated' => 'true',
-      '#options' => $states,
-      '#default_value' => t('Select'),
+      '#required' => TRUE,
+      '#options' => [],//$states,
       '#ajax' => [
-        'callback' => '::myAjaxCallback2',
+        'callback' => '::getCityName',
         'disable-refocus' => FALSE,
         'event' => 'change',
         'wrapper' => 'city',
@@ -265,14 +110,15 @@ class ExampleRegistrationForm extends FormBase {
         ],
       ],
     ];
-
+    // $c =['- Select -'];
     $form['user_city'] = [
       '#type' => 'select',
       '#title' => ('City'),
       '#prefix' => '<div id="city">',
       '#suffix' => '</div>',
+      '#validated' => 'true',
       '#required' => TRUE,
-      '#options' => $city,
+      '#options' => [],//$c,
       '#ajax' => [
         'callback' => '::myAjaxCallback3',
         'disable-refocus' => FALSE,
@@ -312,6 +158,7 @@ class ExampleRegistrationForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
     $field=$form_state->getValues();
+
     $field  = array(
       'user_name'   =>  $field['user_name'],
       'first_name' =>  $field['first_name'],
@@ -372,9 +219,18 @@ class ExampleRegistrationForm extends FormBase {
   public function getStateName(array $form, FormStateInterface $form_state) {
   
     if ($selectedValue = $form_state->getValue('user_country')) {
-      $subdivisionRepository = new SubdivisionRepository();
-      $states = [];
-      $states = $subdivisionRepository->getList([$selectedValue]);
+      $s = [
+        'India' => [
+          'Maharashtra' => 'Maharashtra',
+          'Utter Pradesh' => 'Utter Pradesh',
+        ],
+        'United States of America' => [
+          'New York' => 'New York',
+          'New Jersey' => 'New Jersey',
+          'California' => 'California',
+        ],
+      ];
+      $states = $s[$selectedValue];
       if(!empty($states)){
         $form['user_state']['#options'] = $states;
       } else {
@@ -384,7 +240,49 @@ class ExampleRegistrationForm extends FormBase {
     }
     $form_state->setRebuild(TRUE);
     $response = new AjaxResponse();
-    $response->addCommand(new ReplaceCommand("#first", ($form['user_state'])));
+    $response->addCommand(new ReplaceCommand("#state", ($form['user_state'])));
+    return $response;
+  }
+
+  public function getCityName(array $form, FormStateInterface $form_state) {
+  
+    if ($selectedValue = $form_state->getValue('user_state')) {
+      $c = [
+        'Maharashtra' => [
+          'Mumbai' => 'Mumbai',
+          'Pune' => 'Pune',
+          'Nagpur' => 'Nagpur'
+        ],
+        'Utter Pradesh' => [
+          'Varanasi' => 'Varanasi',
+          'Jaunpur' => 'Jaunpur',
+          'Lucknow' => 'Lucknow'
+        ],
+        'New York' => [
+          'Trenton' => 'Trenton',
+          'Newark' => 'Newark'
+        ],
+        'New Jersey' => [
+          'Albany' => 'Albany',
+          'New York City' => 'New York City',
+        ],
+        'California' => [
+          'Sacramento' => 'Sacramento',
+          'Los Angeles' => 'Los Angeles'
+        ]
+      ];
+      $city = $c[$selectedValue];
+      if(!empty($city)){
+        $form['user_city']['#options'] = $city;
+      } else {
+        $arr = ['no_data' => 'No Data Found'];
+        $form['user_city']['#options'] = $arr;
+      }
+    }
+    $form_state->setRebuild(TRUE);
+    $response = new AjaxResponse();
+    $response->addCommand(new ReplaceCommand("#city", ($form['user_city'])));
+    // print_r($response);exit();
     return $response;
   }
 
